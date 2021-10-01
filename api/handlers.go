@@ -17,15 +17,8 @@ func BuyPizza(w http.ResponseWriter, r *http.Request) {
 		var customerOrder models.PizzaOrder
 		reqBody, _ := ioutil.ReadAll(r.Body)
 		json.Unmarshal(reqBody, &customerOrder)
-
-		if models.CustomerList[customerOrder.CustomerID] == nil {
-			models.CustomerList[customerOrder.CustomerID] = make(models.CustomerOrderStatus)
-		}
 		customerOrder.OrderID = uuid.New().String()
-		models.CustomerList[customerOrder.CustomerID][customerOrder.OrderID] = models.Recieved
-
-		go kitchen.MakePizza(customerOrder)
-
+		go kitchen.CustomerOrder(customerOrder)
 		fmt.Fprintf(w, "You order has been placed! Your Order ID is %s", customerOrder.OrderID)
 	} else {
 		http.Error(w, "Method is not supported.", http.StatusNotFound)
