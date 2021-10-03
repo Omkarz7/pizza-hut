@@ -8,6 +8,11 @@ type PizzaOrder struct {
 	OrderID    string
 }
 
+type CustomerAllOrderStatus struct {
+	OrderID     string `json:"orderID"`
+	OrderStatus string `json:"orderStatus"`
+}
+
 //Configs for host and port
 var host = "http://localhost"
 var Port = ":4700"

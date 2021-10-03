@@ -12,7 +12,8 @@ type PreparationTime struct {
 type OrderStatus int
 
 const (
-	Recieved OrderStatus = iota
+	NotFound OrderStatus = iota
+	Recieved
 	PreparingDough
 	AddingIngredients
 	Baking
@@ -20,7 +21,7 @@ const (
 )
 
 func (status OrderStatus) String() string {
-	return [...]string{"Recieved", "PreparingDough", "AddingIngredients", "Baking", "Ready"}[status]
+	return [...]string{"Not found", "Recieved", "PreparingDough", "AddingIngredients", "Baking", "Ready"}[status]
 }
 
 var PizzaPreparationTime = PreparationTime{PrepareDough: 5, AddIngredients: 5, BakePizza: 15}
